@@ -3,280 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Confession Rain</title>
+    <title>Do You Love Me?</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         body {
-            background: #000;
-            overflow: hidden;
-            font-family: 'Orbitron', monospace;
-            height: 100vh;
+            font-family: 'Poppins', sans-serif;
         }
-        
-        .rain-container {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            background: linear-gradient(180deg, #001122 0%, #000000 100%);
+        .heart-beat {
+            animation: heartbeat 1.5s ease-in-out infinite;
         }
-        
-        .rain-column {
-            position: absolute;
-            top: -100px;
-            font-size: 18px;
-            font-weight: 400;
-            color: #ff41a0;
-            text-shadow: 0 0 10px #ff41a0;
-            animation: fall linear infinite;
-            white-space: nowrap;
-            opacity: 0.8;
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
-        
-        .confession-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            z-index: 100;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 40px;
-            border-radius: 15px;
-            border: 2px solid #ff41a0;
-            box-shadow: 0 0 30px rgba(255, 65, 160, 0.3);
-            max-width: 600px;
-            animation: pulse 3s ease-in-out infinite;
+        .floating {
+            animation: float 3s ease-in-out infinite;
         }
-        
-        .confession-title {
-            color: #ff41a0;
-            font-size: 2.5rem;
-            font-weight: 900;
-            margin-bottom: 20px;
-            text-shadow: 0 0 20px #ff41a0;
-        }
-        
-        .confession-content {
-            color: #ffffff;
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-        
-        .confession-symbols {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .symbol {
-            font-size: 2rem;
-            animation: float 2s ease-in-out infinite;
-        }
-        
-        .symbol:nth-child(1) { animation-delay: 0s; }
-        .symbol:nth-child(2) { animation-delay: 0.5s; }
-        .symbol:nth-child(3) { animation-delay: 1s; }
-        .symbol:nth-child(4) { animation-delay: 1.5s; }
-        
-        @keyframes fall {
-            0% {
-                transform: translateY(-100px);
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
-        }
-        
-        @keyframes pulse {
-            0%, 100% {
-                box-shadow: 0 0 30px rgba(255, 65, 160, 0.3);
-            }
-            50% {
-                box-shadow: 0 0 50px rgba(255, 65, 160, 0.6);
-            }
-        }
-        
         @keyframes float {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
-        
-        .glitch {
-            animation: glitch 0.3s ease-in-out infinite;
+        .sparkle {
+            animation: sparkle 2s linear infinite;
         }
-        
-        @keyframes glitch {
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-            100% { transform: translate(0); }
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: rotate(0deg) scale(1); }
+            50% { opacity: 0.7; transform: rotate(180deg) scale(1.2); }
         }
-        
-        @media (max-width: 768px) {
-            .confession-text {
-                padding: 20px;
-                margin: 20px;
-            }
-            
-            .confession-title {
-                font-size: 2rem;
-            }
-            
-            .confession-content {
-                font-size: 1rem;
-            }
-            
-            .rain-column {
-                font-size: 14px;
-            }
+        .love-message {
+            animation: fadeInScale 0.8s ease-out;
+        }
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .no-button {
+            transition: all 0.3s ease;
+            position: absolute;
+        }
+        .hearts-rain {
+            position: fixed;
+            pointer-events: none;
+            animation: fall 3s linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
-<body>
-    <div class="rain-container" id="rainContainer">
-        <div class="confession-text">
-            <h1 class="confession-title">DIGITAL CONFESSION</h1>
-            <div class="confession-content">
-                In the cascade of digital rain, truth falls like code...<br>
-                Each character carries a secret, each symbol a hidden truth.<br>
-                The matrix reveals what the heart conceals.<br>
-                <strong>What will you confess to the digital void?</strong>
-            </div>
-            <div class="confession-symbols">
-                <span class="symbol">🔐</span>
-                <span class="symbol">💭</span>
-                <span class="symbol">🌟</span>
-                <span class="symbol">🔮</span>
+<body class="bg-gradient-to-br from-pink-100 via-purple-100 to-red-100 min-h-screen flex items-center justify-center overflow-hidden">
+    <!-- Floating decorative elements -->
+    <div class="sparkle text-4xl fixed top-10 left-10">✨</div>
+    <div class="sparkle text-3xl fixed top-20 right-20" style="animation-delay: 1s;">💫</div>
+    <div class="sparkle text-2xl fixed bottom-20 left-20" style="animation-delay: 2s;">⭐</div>
+    <div class="floating text-6xl fixed top-1/4 left-10" style="animation-delay: 0.5s;">💕</div>
+    <div class="floating text-5xl fixed top-1/3 right-10" style="animation-delay: 1.5s;">💖</div>
+    <div class="floating text-4xl fixed bottom-1/4 right-20" style="animation-delay: 2.5s;">💝</div>
+
+    <!-- Main content container -->
+    <div class="text-center relative z-10" id="main-content">
+        <!-- Cute animated heart GIF (using CSS animation) -->
+        <div class="mb-8">
+            <div class="heart-beat text-9xl">💗</div>
+        </div>
+
+        <!-- Question -->
+        <h1 class="text-4xl md:text-5xl font-bold text-pink-600 mb-12 drop-shadow-lg">
+            Do you love me? 🥺
+        </h1>
+
+        <!-- Buttons container -->
+        <div class="flex flex-col sm:flex-row gap-6 justify-center items-center relative" id="buttons-container">
+            <!-- Yes button -->
+            <button id="yes-button" class="bg-gradient-to-r from-pink-400 to-pink-600 hover:from-pink-500 hover:to-pink-700 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg transform hover:scale-105 transition-all duration-300 min-w-32 relative z-20">
+                Yes! 💕
+            </button>
+
+            <!-- No button (will move around) -->
+            <button id="no-button" class="no-button bg-gradient-to-r from-gray-400 to-gray-600 hover:from-gray-500 hover:to-gray-700 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg min-w-32 relative z-10">
+                No 😢
+            </button>
+        </div>
+
+        <!-- Love message (hidden initially) -->
+        <div id="love-message" class="hidden mt-12">
+            <div class="love-message bg-white bg-opacity-90 rounded-3xl p-8 shadow-2xl border-4 border-pink-300">
+                <div class="text-6xl mb-4">💖</div>
+                <h2 class="text-3xl md:text-4xl font-bold text-pink-600 mb-4">
+                    I love you too huni! 🥰
+                </h2>
+                <div class="text-2xl">💕✨💕✨💕</div>
             </div>
         </div>
     </div>
 
     <script>
-        const confessionWords = [
-            'TRUTH', 'SECRET', 'HIDDEN', 'REVEAL', 'WHISPER', 'SHADOW', 'LIGHT',
-            'FORGIVE', 'BURDEN', 'RELEASE', 'HONEST', 'GUILT', 'PEACE', 'SOUL',
-            'HEART', 'MIND', 'FEAR', 'HOPE', 'LOVE', 'PAIN', 'HEAL', 'FREE',
-            'CONFESS', 'ADMIT', 'SHARE', 'TRUST', 'FAITH', 'COURAGE', 'BRAVE'
-        ];
+        const yesButton = document.getElementById('yes-button');
+        const noButton = document.getElementById('no-button');
+        const loveMessage = document.getElementById('love-message');
+        const mainContent = document.getElementById('main-content');
+        const buttonsContainer = document.getElementById('buttons-container');
+
+        // Position the no button initially
+        let noButtonMoved = false;
         
-        const symbols = ['♦', '♠', '♣', '♥', '★', '◆', '●', '▲', '■', '◊', '※', '⚡', '🔑', '💫', '🌙'];
-        
-        // Picture symbols and emojis for confession theme
-        const pictures = ['🔐', '💭', '🌟', '🔮', '👁️', '💝', '🕊️', '🌹', '💎', '🦋', '🌸', '✨', '💫', '🔥', '💜', '🌙', '⭐', '💖', '🎭', '🗝️', '📿', '🕯️', '🌺', '🦄', '👑', '💍', '🎪', '🎨', '🎭', '🌈'];
-        
-        const rainContainer = document.getElementById('rainContainer');
-        
-        function createRainDrop() {
-            const column = document.createElement('div');
-            column.className = 'rain-column';
+        function positionNoButton() {
+            const yesButtonRect = yesButton.getBoundingClientRect();
+            const buttonWidth = 150;
+            const buttonHeight = 60;
             
-            // Random position
-            column.style.left = Math.random() * 100 + '%';
+            let randomX, randomY;
+            let attempts = 0;
             
-            // Random animation duration (speed)
-            const duration = Math.random() * 4 + 3; // 3-7 seconds
-            column.style.animationDuration = duration + 's';
+            do {
+                // Get random position within safe bounds
+                const maxX = window.innerWidth - buttonWidth - 50;
+                const maxY = window.innerHeight - buttonHeight - 50;
+                const minX = 50;
+                const minY = 50;
+                
+                randomX = Math.random() * (maxX - minX) + minX;
+                randomY = Math.random() * (maxY - minY) + minY;
+                
+                attempts++;
+            } while (
+                attempts < 10 && 
+                randomX < yesButtonRect.right + 20 && 
+                randomX + buttonWidth > yesButtonRect.left - 20 &&
+                randomY < yesButtonRect.bottom + 20 && 
+                randomY + buttonHeight > yesButtonRect.top - 20
+            );
             
-            // Create vertical stream of single characters
-            let content = '';
-            const length = Math.random() * 15 + 10; // 10-25 characters for longer streams
-            
-            for (let i = 0; i < length; i++) {
-                let char = '';
-                const rand = Math.random();
-                if (rand < 0.3) {
-                    // 30% chance for single letters from confession words
-                    const word = confessionWords[Math.floor(Math.random() * confessionWords.length)];
-                    char = word[Math.floor(Math.random() * word.length)];
-                } else if (rand < 0.5) {
-                    // 20% chance for random letters/numbers
-                    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-                    char = chars[Math.floor(Math.random() * chars.length)];
-                } else if (rand < 0.7) {
-                    // 20% chance for symbols
-                    char = symbols[Math.floor(Math.random() * symbols.length)];
-                } else {
-                    // 30% chance for picture emojis
-                    char = pictures[Math.floor(Math.random() * pictures.length)];
-                }
-                content += char + '<br>';
-            }
-            
-            column.innerHTML = content;
-            
-            // Random color variations
-            const colors = ['#ff41a0', '#ff3399', '#ff66bb', '#ffffff', '#ffccee'];
-            column.style.color = colors[Math.floor(Math.random() * colors.length)];
-            
-            // Occasional glitch effect
-            if (Math.random() < 0.1) {
-                column.classList.add('glitch');
-            }
-            
-            rainContainer.appendChild(column);
-            
-            // Remove element after animation
-            setTimeout(() => {
-                if (column.parentNode) {
-                    column.parentNode.removeChild(column);
-                }
-            }, duration * 1000);
+            noButton.style.left = randomX + 'px';
+            noButton.style.top = randomY + 'px';
         }
-        
-        // Create rain drops continuously
-        setInterval(createRainDrop, 200);
-        
-        // Add some initial drops
-        for (let i = 0; i < 20; i++) {
-            setTimeout(createRainDrop, i * 100);
-        }
-        
-        // Interactive confession box click effect
-        const confessionBox = document.querySelector('.confession-text');
-        confessionBox.addEventListener('click', function() {
-            this.style.animation = 'none';
-            setTimeout(() => {
-                this.style.animation = 'pulse 3s ease-in-out infinite';
-            }, 100);
+
+        // Yes button click handler
+        yesButton.addEventListener('click', () => {
+            // Hide the question and buttons
+            document.querySelector('h1').style.display = 'none';
+            buttonsContainer.style.display = 'none';
             
-            // Create burst of confession words
-            for (let i = 0; i < 10; i++) {
-                setTimeout(createRainDrop, i * 50);
-            }
+            // Show love message
+            loveMessage.classList.remove('hidden');
+            
+            // Create falling hearts
+            createHeartsRain();
+            
+            // Change background to more romantic
+            document.body.style.background = 'linear-gradient(45deg, #ff9a9e, #fecfef, #fecfef, #ff9a9e)';
         });
-        
-        // Dynamic confession messages
-        const confessionMessages = [
-            "In the cascade of digital rain, truth falls like code...<br>Each character carries a secret, each symbol a hidden truth.<br>The matrix reveals what the heart conceals.<br><strong>What will you confess to the digital void?</strong>",
-            "Secrets flow like data streams...<br>In this digital sanctuary, all truths are welcome.<br>Let the rain wash away your burdens.<br><strong>Your confession is safe in the code.</strong>",
-            "Binary whispers carry your deepest thoughts...<br>Each falling letter is a prayer, each symbol a hope.<br>The digital realm holds no judgment.<br><strong>Speak your truth to the matrix.</strong>"
-        ];
-        
-        let messageIndex = 0;
+
+        // No button hover handler
+        noButton.addEventListener('mouseenter', () => {
+            if (!noButtonMoved) {
+                noButton.style.position = 'fixed';
+                noButtonMoved = true;
+            }
+            positionNoButton();
+        });
+
+        // No button click handler (does nothing as requested)
+        noButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            // No action on click as requested
+        });
+
+        // Create falling hearts animation
+        function createHeartsRain() {
+            const hearts = ['💕', '💖', '💗', '💝', '💘', '🥰', '😍', '💋'];
+            
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'hearts-rain text-4xl';
+                    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                    heart.style.left = Math.random() * window.innerWidth + 'px';
+                    heart.style.animationDelay = Math.random() * 2 + 's';
+                    heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                    
+                    document.body.appendChild(heart);
+                    
+                    // Remove heart after animation
+                    setTimeout(() => {
+                        if (heart.parentNode) {
+                            heart.parentNode.removeChild(heart);
+                        }
+                    }, 5000);
+                }, i * 200);
+            }
+        }
+
+        // Add some random floating hearts periodically
         setInterval(() => {
-            messageIndex = (messageIndex + 1) % confessionMessages.length;
-            document.querySelector('.confession-content').innerHTML = confessionMessages[messageIndex];
-        }, 8000);
+            if (loveMessage.classList.contains('hidden')) {
+                const floatingHeart = document.createElement('div');
+                floatingHeart.className = 'fixed text-3xl pointer-events-none';
+                floatingHeart.textContent = '💕';
+                floatingHeart.style.left = Math.random() * window.innerWidth + 'px';
+                floatingHeart.style.top = Math.random() * window.innerHeight + 'px';
+                floatingHeart.style.animation = 'float 2s ease-in-out, fadeInScale 0.5s ease-out';
+                floatingHeart.style.opacity = '0.7';
+                
+                document.body.appendChild(floatingHeart);
+                
+                setTimeout(() => {
+                    if (floatingHeart.parentNode) {
+                        floatingHeart.style.opacity = '0';
+                        setTimeout(() => {
+                            if (floatingHeart.parentNode) {
+                                floatingHeart.parentNode.removeChild(floatingHeart);
+                            }
+                        }, 500);
+                    }
+                }, 3000);
+            }
+        }, 2000);
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9684bde2549ddd65',t:'MTc1NDA0NTA4Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9770ed6947eddd8b',t:'MTc1NjUyMTY2OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
